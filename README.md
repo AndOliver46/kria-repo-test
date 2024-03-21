@@ -1,4 +1,4 @@
-# String de conexao no arquivo appsettings.json:
+### String de conexao no arquivo appsettings.json:
 
 ```
 "ConnectionStrings": {
@@ -6,12 +6,12 @@
 },
 ```
 
-# Backup do banco SQL Server na razi do repositório:
+### Backup do banco SQL Server na raiz do repositório:
 
 ```
 DB_SistemaContatos.bak
 ```
 
-# Diagrama de classes simples:
+### Diagrama de classes simples:
 
 ![image](https://github.com/AndOliver46/kria-repo-test/assets/101358552/a9eab671-bd3b-4975-8486-b8823118151b)
