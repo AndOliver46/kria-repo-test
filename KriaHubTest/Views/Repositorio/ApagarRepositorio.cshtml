@@ -1,0 +1,10 @@
+﻿@model RepositorioModel
+@{
+    ViewData["Title"] = "Exclusão repositório";
+}
+
+<div class="text-center">
+    <h3>Realmente deseja apagar o repositório: @Model.Nome ?</h3>
+    <a class="btn btn-primary btn-block" asp-action="MeusRepositorios" asp-controller="Repositorio" role="button">Cancelar exclusão</a>
+    <a class="btn btn-danger btn-block" asp-action="Deletar" asp-controller="Repositorio" asp-route-id="@Model.Id" role="button">Confirmar exclusão</a>
+</div>

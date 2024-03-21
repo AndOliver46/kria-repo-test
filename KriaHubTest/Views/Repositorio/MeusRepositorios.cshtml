@@ -1,0 +1,35 @@
+﻿@model List<RepositorioModel>
+@{
+    ViewData["Title"] = TempData["Titulo"];
+}
+
+<div>
+    <div class="container">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+            <input type="text" id="filtroNome" placeholder="Filtrar por nome...">
+            <a class="btn btn-success" asp-controller="Repositorio" asp-action="CriarRepositorio" role="button">Novo</a>
+        </div>
+
+        <br />
+
+        @if (Model != null)
+        {
+            foreach (RepositorioModel repositorio in Model)
+            {
+                <div class="repo position-relative">
+                    <div class="repo-info">
+                        <a asp-controller="Repositorio" asp-action="VerDetalhes" asp-route-id="@repositorio.Id">@repositorio.Nome</a>
+                        <span class="repo-visibility">@repositorio.Visibilidade.ToString()</span>
+                        <p class="repo-description">@repositorio.Descricao</p>
+                        <p class="repo-language">@repositorio.Linguagem.ToString()</p>
+                    </div>
+                    <div class="position-absolute top-0 end-0 mt-2 me-2">
+                        <a class="btn btn-danger" asp-action="ApagarRepositorio" asp-controller="Repositorio" asp-route-id="@repositorio.Id" role="button">Apagar</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script src="~/js/filter.js" asp-append-version="true"></script>

@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -19,4 +19,117 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.field-validation-error{
+    color: red;
+}
+
+.container {
+    width: 100%;
+    min-width: 700px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.repo {
+    background-color: #fff; /* Cor de fundo branca */
+    border: 1px solid #e1e4e8; /* Borda semelhante à do GitHub */
+    border-radius: 6px; /* Cantos arredondados semelhantes ao do GitHub */
+    margin-bottom: 16px; /* Espaçamento inferior entre os repositórios */
+    padding: 12px 16px; /* Espaçamento interno semelhante ao do GitHub */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* Adicionado para posicionar elementos absolutos */
+}
+
+    .repo .repo-info a {
+        text-decoration: none;
+        color: #0366d6; /* Cor do link semelhante ao do GitHub */
+        font-weight: bold; /* Fonte em negrito semelhante ao do GitHub */
+    }
+
+        .repo a:hover {
+            text-decoration: underline; /* Sublinhado ao passar o mouse semelhante ao do GitHub */
+        }
+
+.repo-info {
+    flex: 1;
+    padding: 0 16px; /* Espaçamento interno semelhante ao do GitHub */
+}
+
+.repo-description {
+    color: #586069; /* Cor do texto da descrição semelhante ao do GitHub */
+    margin-top: 6px; /* Espaçamento superior da descrição */
+}
+
+.repo-language {
+    font-size: 0.9em; /* Tamanho da fonte menor semelhante ao do GitHub */
+    color: #586069; /* Cor do texto da linguagem semelhante ao do GitHub */
+}
+
+    .repo-language::before {
+        content: "•"; /* Símbolo do bullet para a linguagem semelhante ao do GitHub */
+        margin-right: 4px; /* Espaçamento à direita do bullet */
+    }
+
+.repo-visibility {
+    font-size: 0.9em; /* Tamanho da fonte menor semelhante ao do GitHub */
+    color: #586069; /* Cor do texto da visibilidade semelhante ao do GitHub */
+    border-radius: 8px;
+    margin-left: 20px;
+    background-color: antiquewhite
+}
+
+#filtroNome {
+    min-width: 500px;
+}
+
+.nav-item.active {
+    background-color: #007bff;
+    border-radius: 0.25rem;
+    color: #fff;
+}
+
+.login-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.close-alert {
+    position: absolute;
+    right: -10px;
+    top: -15px;
+    border-radius: 15px;
+    width: 23px;
+    height: 23px;
+    font-size: 10px;
+}
+
+.full-width-input {
+    width: 100%;
+    vertical-align: top;
+}
+
+.centered {
+    max-width: 500px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
 }

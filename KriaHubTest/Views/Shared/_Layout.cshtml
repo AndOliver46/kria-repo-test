@@ -1,35 +1,71 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var actionAtual = ViewContext.RouteData.Values["Action"] as string;
+    var usuarioAutenticado = User.Identity.IsAuthenticated;
+    var nomeUsuario = User.Identity.Name;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KriaHubTest</title>
+    <title>@ViewData["Title"] - KriaHub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KriaHubTest.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KriaHubTest</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KriaHub</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                @if (usuarioAutenticado)
+                {
+                    <div class="navbar-collapse collapse d-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item @(actionAtual == "Index" ? "active" : "")">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
+                            </li>
+                            <li class="nav-item @(actionAtual == "MeusRepositorios" ? "active" : "")">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Repositorio" asp-action="MeusRepositorios">Meus Repositórios</a>
+                            </li>
+                            <li class="nav-item @(actionAtual == "BuscarRepositorios" ? "active" : "")">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Repositorio" asp-action="BuscarRepositorios">Buscar Repositórios</a>
+                            </li>
+                            <li class="nav-item @(actionAtual == "RepositoriosFavoritos" ? "active" : "")">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Repositorio" asp-action="RepositoriosFavoritos">Repositórios Favoritos</a>
+                            </li>
+                        </ul>
+                        <div class="navbar-nav ml-auto">
+                            <span class="nav-link text-dark">@nomeUsuario</span>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Conta" asp-action="Logout" onclick="limparHistoricoNavegacao()">Logout</a>
+                        </div>
+                    </div>
+                }
                 </div>
-            </div>
-        </nav>
+            </nav>
+        
     </header>
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success centered" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger centered" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -38,7 +74,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - KriaHubTest - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - KriaHub
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,56 @@
+﻿@using KriaHubTest.Enums
+@using System.Security.Claims
+@model CadastroRepositorioDTO
+@{
+    ViewData["Title"] = "Criar Repositório";
+    var nomeUsuario = User.Identity.Name;
+    var idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
+<div class="text-center">
+    <h1 class="display-4">Criar Repositório</h1>
+</div>
+
+<form asp-controller="Repositorio" asp-action="CriarRepositorio" method="post">
+    <div class="form-group">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do repositório">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+
+    <div class="form-group">
+        <label for="descricao" class="form-label">Descrição</label>
+        <input type="text" asp-for="Descricao" class="form-control full-width-input" placeholder="Descrição">
+        @Html.ValidationMessageFor(x => x.Descricao)
+    </div>
+
+    <div class="form-group mt-3 mb-3">
+        <label for="linguagem" class="form-label">Linguagem</label>
+        <select asp-for="Linguagem" asp-items="Enum.GetNames(typeof(LinguagemEnum)).Select(name => new SelectListItem { Text = name, Value = name })"></select>
+        @Html.ValidationMessageFor(x => x.Linguagem)
+    </div>
+
+    <div class="form-group mt-3 mb-3">
+        <label for="visibilidade" class="form-label">Visibilidade</label>
+        <select asp-for="Visibilidade" asp-items="Enum.GetNames(typeof(VisibilidadeEnum)).Select(name => new SelectListItem { Text = name, Value = name })"></select>
+        @Html.ValidationMessageFor(x => x.Visibilidade)
+    </div>
+
+    <div class="form-group">
+        <label for="data" class="form-label">Data Atualização</label>
+        <input type="date" asp-for="DataAtualizacao" class="form-control" placeholder="Data Atualização">
+        @Html.ValidationMessageFor(x => x.DataAtualizacao)
+    </div>
+
+    <div class="form-group">
+        <label for="dono" class="form-label">Dono Repositório</label>
+        <input type="text" class="form-control" value="@nomeUsuario" disabled>
+    </div>
+
+    <input type="hidden" asp-for="UsuarioId" value="@idUsuario">
+
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-block">Criar</button>
+    <a class="btn btn-secondary btn-block" asp-controller="Repositorio" asp-action="MeusRepositorios" role="button">Voltar</a>
+</form>
