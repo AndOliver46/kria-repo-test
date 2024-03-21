@@ -91,7 +91,7 @@ namespace KriaHubTest.Services
 
         public void Deletar(int idRepositorio, int idUsuario)
         {
-            var repositorio = BuscarPorId(idRepositorio);
+            RepositorioModel repositorio = BuscarPorId(idRepositorio);
 
             if (repositorio == null)
             {
@@ -126,7 +126,7 @@ namespace KriaHubTest.Services
                 Visibilidade = repositorioModel.Visibilidade,
                 UsuarioId = repositorioModel.UsuarioId,
                 Usuario = repositorioModel.Usuario,
-                Favorito = false // Defina o valor de Favorito conforme necessário
+                Favorito = false 
             };
 
             repositorioDetalhesModel.Favorito = _usuariosRepositoriosService.IsRepositorioFavoritado(userId, id);

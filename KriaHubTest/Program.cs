@@ -32,7 +32,7 @@ namespace KriaHubTest
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Conta/Login"; // Rota para a página de login
+                    options.LoginPath = "/Conta/Login";
                 });
 
             var app = builder.Build();

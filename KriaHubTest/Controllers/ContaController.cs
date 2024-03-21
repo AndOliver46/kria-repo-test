@@ -19,7 +19,7 @@ namespace KriaHubTest.Controllers
 
         public IActionResult Login()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -30,7 +30,7 @@ namespace KriaHubTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
-            ClaimsPrincipal principal = _contaService.AutenticarUsuario(email, password);
+            ClaimsPrincipal? principal = _contaService.AutenticarUsuario(email, password);
 
             if (principal == null)
             {
@@ -70,7 +70,7 @@ namespace KriaHubTest.Controllers
             }
             catch (DbUpdateException ex)
             {
-                var innerException = ex.InnerException as SqlException;
+                SqlException? innerException = ex.InnerException as SqlException;
                 if (innerException != null && (innerException.Number == 2627 || innerException.Number == 2601))
                 {
                     TempData["MensagemErro"] = "O email informado já está cadastrado.";

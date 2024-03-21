@@ -19,7 +19,7 @@ namespace KriaHubTest.Repositories
             return _context.Set<UsuarioModel>().ToList();
         }
 
-        public UsuarioModel GetById(int id)
+        public UsuarioModel? GetById(int id)
         {
             return _context.Set<UsuarioModel>().Find(id);
         }

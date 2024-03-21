@@ -3,14 +3,9 @@ using KriaHubTest.Services.Interfaces;
 
 namespace KriaHubTest.Services
 {
-    public class UsuarioRepositorioService : IUsuarioRepositorioService
+    public class UsuarioRepositorioService(IUsuarioRepositorioRepository usuariosRepositoriosRepository) : IUsuarioRepositorioService
     {
-        private readonly IUsuarioRepositorioRepository _usuariosRepositoriosRepository;
-
-        public UsuarioRepositorioService(IUsuarioRepositorioRepository usuariosRepositoriosRepository)
-        {
-            _usuariosRepositoriosRepository = usuariosRepositoriosRepository;
-        }
+        private readonly IUsuarioRepositorioRepository _usuariosRepositoriosRepository = usuariosRepositoriosRepository;
 
         public void FavoritarRepositorio(int usuarioId, int repositorioId)
         {

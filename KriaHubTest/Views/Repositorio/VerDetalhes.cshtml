@@ -46,10 +46,10 @@
 
     <div class="form-group">
         <label for="dono" class="form-label">Dono Repositorio</label>
-        <input type="text" class="form-control" value="@nomeUsuario" disabled>
+        <input type="text" class="form-control" asp-for="Usuario.Nome"  disabled>
     </div>
 
-    <input type="hidden" asp-for="UsuarioId" value="@idUsuario">
+    <input type="hidden" asp-for="UsuarioId">
 
     <br />
 

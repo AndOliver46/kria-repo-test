@@ -1,4 +1,6 @@
-﻿using KriaHubTest.Models;
+﻿#pragma warning disable SYSLIB0041
+
+using KriaHubTest.Models;
 using KriaHubTest.Repositories.Interfaces;
 using KriaHubTest.Services.Interfaces;
 using System.Security.Claims;
@@ -6,18 +8,13 @@ using System.Security.Cryptography;
 
 namespace KriaHubTest.Services
 {
-    public class ContaService : IContaService
+    public class ContaService(IUsuarioRepository usuarioRepository) : IContaService
     {
         private const int SaltSize = 32;
         private const int HashSize = 64;
         private const int Iterations = 10000;
 
-        private readonly IUsuarioRepository _usuarioRepository;
-
-        public ContaService(IUsuarioRepository usuarioRepository)
-        {
-            _usuarioRepository = usuarioRepository;
-        }
+        private readonly IUsuarioRepository _usuarioRepository = usuarioRepository;
 
         public void CriarConta(CadastroUsuarioDTO usuarioDTO)
         {
@@ -26,10 +23,12 @@ namespace KriaHubTest.Services
                 throw new ArgumentNullException(nameof(usuarioDTO), "O objeto CadastroUsuarioDTO não pode ser nulo.");
             }
 
-            UsuarioModel usuario = new UsuarioModel
+            UsuarioModel usuario = new()
             {
                 Nome = usuarioDTO.Nome,
                 Email = usuarioDTO.Email,
+                Senha = usuarioDTO.Senha,
+                Salt = "",
                 DataCadastro = DateTime.Now,
                 DataAtualizacao = DateTime.Now
             };
@@ -54,14 +53,20 @@ namespace KriaHubTest.Services
                 throw new ArgumentNullException(nameof(senha), "A senha não pode ser nula ou vazia.");
             }
 
-            UsuarioModel usuario = _usuarioRepository.GetByEmail(email);
+            UsuarioModel? usuario = _usuarioRepository.GetByEmail(email);
 
-            if (usuario == null || !VerificarSenhaHash(senha, usuario.Senha, usuario.Salt))
+            if (usuario == null)
             {
                 return null;
             }
 
-            var claims = new[] {
+            if (!VerificarSenhaHash(senha, usuario.Senha, usuario.Salt))
+            {
+                return null;
+            }
+
+
+                var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Nome),
             };
@@ -72,7 +77,7 @@ namespace KriaHubTest.Services
             return principal;
         }
 
-        private byte[] GerarSalt()
+        private static byte[] GerarSalt()
         {
             byte[] saltBytes = new byte[SaltSize];
             using (var rng = RandomNumberGenerator.Create())
@@ -82,7 +87,7 @@ namespace KriaHubTest.Services
             return saltBytes;
         }
 
-        private string GerarSenhaHash(string senha, byte[] saltBytes)
+        private static string GerarSenhaHash(string senha, byte[] saltBytes)
         {
             byte[] hashBytes;
             using (var pbkdf2 = new Rfc2898DeriveBytes(senha, saltBytes, Iterations))
@@ -92,7 +97,7 @@ namespace KriaHubTest.Services
             return Convert.ToBase64String(hashBytes);
         }
 
-        private bool VerificarSenhaHash(string senha, string senhaHash, string salt)
+        private static bool VerificarSenhaHash(string senha, string senhaHash, string salt)
         {
             byte[] hashBytes = Convert.FromBase64String(senhaHash);
             byte[] saltBytes = Convert.FromBase64String(salt);
@@ -114,3 +119,5 @@ namespace KriaHubTest.Services
         }
     }
 }
+
+#pragma warning restore SYSLIB0041

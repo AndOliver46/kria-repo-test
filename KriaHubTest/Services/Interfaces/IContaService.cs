@@ -5,7 +5,7 @@ namespace KriaHubTest.Services.Interfaces
 {
     public interface IContaService
     {
-        ClaimsPrincipal AutenticarUsuario(string email, string senha);
+        ClaimsPrincipal? AutenticarUsuario(string email, string senha);
         void CriarConta(CadastroUsuarioDTO usuarioDTO);
     }
 }

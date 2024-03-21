@@ -6,10 +6,10 @@ namespace KriaHubTest.Models
     public class CadastroRepositorioDTO
     {
         [Required(ErrorMessage = "O nome do repositório é obrigatório.")]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [StringLength(100, MinimumLength = 5, ErrorMessage = "A descrição deve ter entre 5 e 100 caracteres.")]
-        public string Descricao { get; set; }
+        public required string Descricao { get; set; }
 
         [Required(ErrorMessage = "A linguagem do repositório é obrigatória.")]
         public LinguagemEnum Linguagem { get; set; }
